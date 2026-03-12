@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* smooth scroll for the whole page */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* prevent navbar overlap */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* VARIABLES */
+:root{
+  --navy:#0f2b45;
+  --navy-soft:#2e6691;
+  --accent:#1a7abf;
+  --accent-light:#3b9fd8;
+
+  --surface:#ffffff;
+  --text-soft:#4a7fa0;
+
+  --font-display:'Playfair Display', serif;
+  --font-body:'Montserrat', sans-serif;
+
+  --nav-height:64px;
+}
+
+/* NAVBAR */
+.nav-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+
+  height:var(--nav-height);
+
+  background:rgba(255,255,255,0.65);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(26,122,191,0.08);
+
+  z-index:1000;
+
+  transition:background .3s ease, box-shadow .3s ease;
+}
+
+.nav-bar.nav-scrolled{
+  background:rgba(255,255,255,0.9);
+  box-shadow:0 2px 20px rgba(15,43,69,0.1);
+}
+
+/* INNER */
+.nav-inner{
+  max-width:1100px;
+  margin:auto;
+
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 1.5rem;
+}
+
+/* BRAND */
+.nav-brand{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:1.45rem;
+
+  color:var(--navy);
+  text-decoration:none;
+
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.nav-brand:hover{
+  color:var(--accent);
+}
+
+.brand-dot{
+  color:var(--accent);
+}
+
+/* DESKTOP LINKS */
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.nav-link{
+  position:relative;
+
+  font-family:var(--font-body);
+  font-weight:500;
+  font-size:.9rem;
+
+  color:var(--navy-soft);
+
+  text-decoration:none;
+
+  padding:.45rem .85rem;
+  border-radius:8px;
+
+  transition:.2s;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.nav-link:hover{
+  color:var(--accent);
+  background:rgba(26,122,191,.06);
+}
+
+.nav-link--active{
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* underline animation */
+.nav-link-bar{
+  position:absolute;
+  bottom:4px;
+  left:50%;
+  transform:translateX(-50%);
+
+  height:2px;
+  width:0;
+
+  background:var(--accent);
+
+  border-radius:10px;
+
+  transition:width .25s ease;
+}
+
+.nav-link:hover .nav-link-bar,
+.nav-link--active .nav-link-bar{
+  width:60%;
+}
+
+/* HAMBURGER */
+.nav-hamburger{
+  display:none;
+
+  flex-direction:column;
+  justify-content:center;
+
+  gap:5px;
+
+  width:38px;
+  height:38px;
+
+  background:none;
+  border:none;
+
+  cursor:pointer;
+}
+
+.nav-hamburger span{
+  height:2px;
+  background:var(--navy);
+  border-radius:10px;
+
+  transition:.3s;
+}
+
+.nav-hamburger span:nth-child(1){width:22px;}
+.nav-hamburger span:nth-child(2){width:16px;}
+.nav-hamburger span:nth-child(3){width:22px;}
+
+.nav-hamburger.is-open span:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+
+.nav-hamburger.is-open span:nth-child(2){
+  opacity:0;
+}
+
+.nav-hamburger.is-open span:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
+}
+
+/* MOBILE DRAWER */
+.nav-drawer{
+  position:fixed;
+  top:var(--nav-height);
+  left:0;
+  right:0;
+
+  background:rgba(255,255,255,0.96);
+
+  backdrop-filter:blur(20px);
+
+  border-bottom:1px solid rgba(26,122,191,.1);
+
+  max-height:0;
+  overflow:hidden;
+
+  transition:max-height .4s ease;
+
+  opacity:0;
+  pointer-events:none;
+}
+
+.nav-drawer.drawer-open{
+  max-height:420px;
+
+  opacity:1;
+  pointer-events:auto;
+}
+
+.drawer-links{
+  list-style:none;
+  padding:1rem 1.5rem;
+
+  display:flex;
+  flex-direction:column;
+}
+
+.drawer-link{
+  font-family:var(--font-body);
+  font-size:1rem;
+
+  color:var(--navy-soft);
+
+  text-decoration:none;
+
+  padding:.75rem 1rem;
+  border-radius:10px;
+
+  transition:.2s;
+}
+
+.drawer-link:hover{
+  color:var(--accent);
+  background:rgba(26,122,191,.07);
+}
+
+.drawer-link--active{
+  color:var(--accent);
+  font-weight:600;
+
+  border-left:3px solid var(--accent);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:767px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .nav-hamburger{
+    display:flex;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .nav-inner{
+    padding:0 1rem;
+  }
+
+  .nav-brand{
+    font-size:1.25rem;
+  }
+
+}

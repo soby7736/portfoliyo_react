@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────
+   TOKENS  (same as Hero / About / Experience)
+───────────────────────────────────────── */
+:root {
+  --navy:         #0f2b45;
+  --navy-soft:    #2e6691;
+  --accent:       #1a7abf;
+  --accent-lt:    #3b9fd8;
+  --accent-pale:  rgba(26, 122, 191, 0.08);
+  --surface:      #ffffff;
+  --border:       rgba(26, 122, 191, 0.13);
+  --text-soft:    #4a7fa0;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Montserrat', 'Segoe UI', sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   SECTION
+───────────────────────────────────────── */
+.skills-section {
+  background: linear-gradient(158deg, #e6f0f8 0%, #f4f8fc 55%, #eaf2f8 100%);
+  padding: 5rem 0 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative blobs */
+.skills-section::before {
+  content: "";
+  position: absolute;
+  width: 460px; height: 460px;
+  top: -120px; right: -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,122,191,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.skills-section::after {
+  content: "";
+  position: absolute;
+  width: 340px; height: 340px;
+  bottom: -90px; left: -70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(58,159,216,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+.skills-header {
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.skills-subtitle {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 0.3rem;
+}
+
+.skills-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.6rem;
+}
+
+.skills-divider {
+  width: 52px;
+  height: 3px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(26,122,191,0.15), var(--accent), rgba(26,122,191,0.15));
+}
+
+/* ─────────────────────────────────────────
+   GRID
+───────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   SKILL CARD
+───────────────────────────────────────── */
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem 1rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+
+  /* smooth all transitions */
+  transition:
+    background   0.32s ease,
+    border-color 0.32s ease,
+    transform    0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow   0.28s ease;
+
+  box-shadow: 0 2px 10px rgba(15,43,69,0.07), 0 6px 22px rgba(15,43,69,0.05);
+}
+
+/* ── HOVER: background + border + lift ── */
+.skill-card:hover {
+  background: var(--accent);          /* navy ocean blue fill */
+  border-color: var(--accent);
+  transform: translateY(-7px) scale(1.03);
+  box-shadow:
+    0 10px 30px rgba(26,122,191,0.35),
+    0 20px 50px rgba(15,43,69,0.15);
+}
+
+/* ── Bottom accent bar (grows on hover) ── */
+.skill-hover-bar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 0;
+  background: var(--accent-lt);
+  border-radius: 999px 999px 0 0;
+  transition: width 0.35s ease;
+}
+.skill-card:hover .skill-hover-bar {
+  width: 60%;
+  background: rgba(255,255,255,0.5);
+}
+
+/* ─────────────────────────────────────────
+   ICON
+───────────────────────────────────────── */
+.skill-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin: 0 auto 1rem;
+  background: var(--accent-pale);
+  border: 1.5px solid rgba(26,122,191,0.16);
+  transition: background 0.32s ease, border-color 0.32s ease;
+}
+
+.skill-icon-wrap i {
+  font-size: 1.65rem;
+  color: var(--accent);
+  transition: color 0.32s ease;
+}
+
+/* text icon (Django "Dj") */
+.skill-text-icon {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--accent);
+  line-height: 1;
+  transition: color 0.32s ease;
+}
+
+/* on hover: icon background + color go white */
+.skill-card:hover .skill-icon-wrap {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.35);
+}
+.skill-card:hover .skill-icon-wrap i,
+.skill-card:hover .skill-text-icon {
+  color: #ffffff;
+}
+
+/* ─────────────────────────────────────────
+   LABEL
+───────────────────────────────────────── */
+.skill-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--navy);
+  letter-spacing: 0.3px;
+  margin: 0;
+  transition: color 0.32s ease;
+}
+
+.skill-card:hover .skill-label {
+  color: #ffffff;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+
+/* 4 columns — medium desktops / large tablets */
+@media (max-width: 1100px) {
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 3 columns — tablets landscape */
+@media (max-width: 820px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+  }
+}
+
+/* 2 columns — tablets portrait / large phones */
+@media (max-width: 560px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  .skill-card {
+    padding: 1.4rem 0.8rem 1.2rem;
+    border-radius: 13px;
+  }
+  .skill-icon-wrap {
+    width: 48px;
+    height: 48px;
+  }
+  .skill-icon-wrap i {
+    font-size: 1.4rem;
+  }
+  .skill-label {
+    font-size: 0.78rem;
+  }
+}
+
+/* 2 columns still on very small screens, tighter */
+@media (max-width: 360px) {
+  .skills-grid {
+    gap: 0.6rem;
+  }
+  .skill-card {
+    padding: 1.1rem 0.6rem 1rem;
+  }
+}

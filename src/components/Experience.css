@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --navy:         #0f2b45;
+  --navy-mid:     #1d4a6e;
+  --navy-soft:    #2e6691;
+  --accent:       #1a7abf;
+  --accent-lt:    #3b9fd8;
+  --accent-pale:  rgba(26, 122, 191, 0.09);
+  --edu-color:    #2e8b74;
+  --edu-pale:     rgba(46, 139, 116, 0.09);
+  --surface:      #ffffff;
+  --border:       rgba(26, 122, 191, 0.13);
+  --text-body:    #2e4a63;
+  --text-soft:    #4a7fa0;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Montserrat', 'Segoe UI', sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   SECTION
+───────────────────────────────────────── */
+.exp-section {
+  background: linear-gradient(158deg, #e6f0f8 0%, #f4f8fc 55%, #eaf2f8 100%);
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-section::before {
+  content: "";
+  position: absolute;
+  width: 500px; height: 500px;
+  top: -140px; right: -140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,122,191,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.exp-section::after {
+  content: "";
+  position: absolute;
+  width: 380px; height: 380px;
+  bottom: -100px; left: -80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(58,159,216,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+.exp-header {
+  padding: 4rem 1rem 1.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-subtitle {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 0.3rem;
+}
+
+.exp-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.6rem;
+}
+
+.exp-divider {
+  width: 52px;
+  height: 3px;
+  margin: 0 auto 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(26,122,191,0.15), var(--accent), rgba(26,122,191,0.15));
+}
+
+.exp-hint {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   DESKTOP ROAD SCENE
+═══════════════════════════════════════════ */
+.exp-scene-desktop {
+  position: relative;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  /* padding-top/bottom gives space for cards floating above/below the road */
+  padding: 200px 1.5rem 200px;
+  box-sizing: border-box;
+}
+
+.exp-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  cursor: crosshair;
+}
+
+/* ─── Floating card wrapper ─── */
+.exp-float-wrap {
+  position: absolute;
+  /* cards are 260px wide — center on dot */
+  width: 260px;
+  margin-left: -130px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* card-above: bottom of card touches connector top → shift card fully above dot */
+.exp-float-wrap.float-above {
+  /* translateY(-100%) moves card up by its own height, minus connector gap */
+  transform: translateY(calc(-100% - 24px));
+}
+
+/* card-below: top of card is 24px below the dot */
+.exp-float-wrap.float-below {
+  transform: translateY(24px);
+}
+
+/* ─── Slide-up / slide-down reveal via clip-path ─── */
+
+/* ABOVE cards: clipped from bottom → slide up into view */
+.exp-float-wrap.float-above .exp-card {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.65s cubic-bezier(0.22, 0.9, 0.36, 1);
+  will-change: clip-path;
+}
+.exp-float-wrap.float-above.is-revealed .exp-card {
+  clip-path: inset(0% 0 0 0);
+}
+
+/* BELOW cards: clipped from top → slide down into view */
+.exp-float-wrap.float-below .exp-card {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(0.22, 0.9, 0.36, 1);
+  will-change: clip-path;
+}
+.exp-float-wrap.float-below.is-revealed .exp-card {
+  clip-path: inset(0 0 0% 0);
+}
+
+.exp-float-wrap.is-revealed {
+  pointer-events: auto;
+}
+
+/* ─── Connector line ─── */
+.exp-connector {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  border-radius: 999px;
+  height: 0;
+  opacity: 0;
+  transition: height 0.35s ease 0.3s, opacity 0.35s ease 0.3s;
+}
+.exp-float-wrap.is-revealed .exp-connector {
+  height: 22px;
+  opacity: 1;
+}
+
+.conn-above {
+  bottom: -22px;
+  background: linear-gradient(to bottom, rgba(26,122,191,0.15), var(--accent));
+}
+.conn-below {
+  top: -22px;
+  background: linear-gradient(to bottom, var(--accent), rgba(26,122,191,0.15));
+}
+
+/* ─── Dot pulse ─── */
+.dot-pulse {
+  animation: dotPulse 2s ease-out infinite;
+}
+@keyframes dotPulse {
+  0%   { r: 14px; opacity: 0.5; }
+  100% { r: 30px; opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE / TABLET  — vertical timeline
+═══════════════════════════════════════════ */
+.exp-timeline {
+  position: relative;
+  max-width: 680px;
+  margin: 2rem auto 0;
+  padding: 0 1rem 2rem;
+}
+
+/* center vertical line */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(26,122,191,0.08),
+    rgba(26,122,191,0.5) 20%,
+    rgba(26,122,191,0.5) 80%,
+    rgba(26,122,191,0.08)
+  );
+  border-radius: 999px;
+}
+
+/* timeline item */
+.timeline-item {
+  position: relative;
+  width: 46%;
+  margin-bottom: 2.5rem;
+}
+
+/* left-side items */
+.timeline-item.item-left {
+  margin-right: auto;
+  padding-right: 1.5rem;
+  text-align: right;
+}
+
+/* right-side items */
+.timeline-item.item-right {
+  margin-left: auto;
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
+/* dot on center line */
+.timeline-dot {
+  position: absolute;
+  top: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 3px rgba(26,122,191,0.2), 0 4px 14px rgba(15,43,69,0.12);
+  z-index: 2;
+}
+
+.timeline-item.item-left  .timeline-dot { right: -20px; }
+.timeline-item.item-right .timeline-dot { left:  -20px; }
+
+.timeline-dot.dot-work { background: var(--accent);    color: #fff; }
+.timeline-dot.dot-edu  { background: var(--edu-color); color: #fff; }
+
+/* ─── slide-up reveal for mobile cards ─── */
+.timeline-item .exp-card {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.6s cubic-bezier(0.22, 0.9, 0.36, 1);
+  will-change: clip-path;
+}
+.timeline-item.item-revealed .exp-card {
+  clip-path: inset(0% 0 0 0);
+}
+
+/* ─── narrow screens: single column ─── */
+@media (max-width: 520px) {
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-item.item-left,
+  .timeline-item.item-right {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 52px;
+    padding-right: 0;
+    text-align: left;
+  }
+  .timeline-item.item-left  .timeline-dot,
+  .timeline-item.item-right .timeline-dot {
+    left: 0;
+    right: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SHARED CARD STYLES
+═══════════════════════════════════════════ */
+.exp-card {
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 2px 10px rgba(15,43,69,0.07),
+    0 8px 28px rgba(15,43,69,0.06);
+  overflow: hidden;
+  transition: box-shadow 0.28s ease;
+}
+
+.exp-card:hover {
+  box-shadow:
+    0 6px 20px rgba(26,122,191,0.13),
+    0 18px 44px rgba(15,43,69,0.10);
+}
+
+/* top accent stripe */
+.exp-card-stripe {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-lt), var(--accent));
+}
+.exp-card--edu .exp-card-stripe {
+  background: linear-gradient(90deg, #4cbe9e, var(--edu-color));
+}
+
+/* inner padding */
+.exp-card-inner {
+  padding: 1rem 1.15rem 1.3rem;
+}
+
+/* header row: icon + tag */
+.exp-card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+/* icon badge */
+.exp-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.exp-icon-wrap.icon-work {
+  background: var(--accent-pale);
+  border: 1.5px solid rgba(26,122,191,0.2);
+}
+.exp-icon-wrap.icon-edu {
+  background: var(--edu-pale);
+  border: 1.5px solid rgba(46,139,116,0.22);
+}
+.exp-icon-wrap i { font-size: 1.05rem; }
+.icon-work i     { color: var(--accent); }
+.icon-edu  i     { color: var(--edu-color); }
+
+/* tag */
+.exp-tag {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+}
+.tag-work { background: var(--accent-pale); color: var(--accent); }
+.tag-edu  { background: var(--edu-pale);    color: var(--edu-color); }
+
+/* title */
+.exp-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 0.32rem;
+  letter-spacing: -0.1px;
+}
+
+/* org */
+.exp-card-org {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.76rem;
+  color: var(--navy-soft);
+  margin-bottom: 0.22rem;
+}
+
+/* meta */
+.exp-card-meta {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: var(--text-soft);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem;
+}
+.meta-sep { margin: 0 0.2rem; opacity: 0.45; }
+
+/* list */
+.exp-card-list {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--text-body);
+  line-height: 1.7;
+  padding-left: 1rem;
+  margin: 0;
+}
+.exp-card-list li            { margin-bottom: 0.26rem; }
+.exp-card-list li::marker    { color: var(--accent); }
+.exp-card--edu .exp-card-list li::marker { color: var(--edu-color); }
+
+/* mobile: right-aligned items need left-aligned card text */
+.timeline-item.item-left .exp-card-meta {
+  justify-content: flex-end;
+}
+@media (max-width: 520px) {
+  .timeline-item.item-left .exp-card-meta {
+    justify-content: flex-start;
+  }
+}
+
+/* ─── desktop card size ─── */
+.card-desktop {
+  font-size: 1rem; /* base; children use rem */
+}
+
+/* ─── mobile card: slightly larger text since no space constraints ─── */
+.card-mobile .exp-card-title { font-size: clamp(0.95rem, 2vw, 1.08rem); }
+.card-mobile .exp-card-list  { font-size: 0.8rem; }
+.card-mobile .exp-card-org   { font-size: 0.82rem; }
+.card-mobile .exp-card-meta  { font-size: 0.75rem; }
+
+/* ─── desktop scene scales its padding with viewport ─── */
+@media (max-width: 1100px) {
+  .exp-scene-desktop { padding: 160px 1rem 160px; }
+  .exp-float-wrap    { width: 220px; margin-left: -110px; }
+}
+
+@media (max-width: 920px) {
+  .exp-scene-desktop { padding: 130px 0.5rem 130px; }
+  .exp-float-wrap    { width: 190px; margin-left: -95px; }
+  .exp-card-title    { font-size: 0.85rem; }
+  .exp-card-list     { font-size: 0.7rem; }
+}

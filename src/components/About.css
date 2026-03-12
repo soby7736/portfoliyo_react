@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap');
+
+/* ── Variables (same as Hero) ── */
+:root {
+  --about-bg-start:   #e8f4fb;
+  --about-bg-end:     #f4f9fd;
+  --about-accent:     #1a6fa8;
+  --about-accent-lt:  #3a9fd8;
+  --about-text-dark:  #12304a;
+  --about-text-mid:   #2e5f82;
+  --about-text-soft:  #4a7fa0;
+  --about-card-bg:    #ffffff;
+  --about-card-shadow: rgba(20, 80, 140, 0.09);
+}
+
+/* ── Section ── */
+.about-section {
+  background: linear-gradient(160deg, var(--about-bg-start) 0%, var(--about-bg-end) 100%);
+  min-height: 100vh;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative background blobs */
+.about-section::before,
+.about-section::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.about-section::before {
+  width: 480px;
+  height: 480px;
+  top: -120px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(26, 111, 168, 0.07) 0%, transparent 70%);
+}
+
+.about-section::after {
+  width: 360px;
+  height: 360px;
+  bottom: -100px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(58, 159, 216, 0.08) 0%, transparent 70%);
+}
+
+/* ── Section header ── */
+.about-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--about-text-soft);
+  margin-bottom: 0.4rem;
+}
+
+.about-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  color: var(--about-text-dark);
+  letter-spacing: -0.4px;
+  margin-bottom: 0.8rem;
+}
+
+.about-divider {
+  width: 52px;
+  height: 3px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(26, 111, 168, 0.15),
+    var(--about-accent),
+    rgba(26, 111, 168, 0.15)
+  );
+}
+
+/* ── Cards ── */
+.about-card {
+  background: var(--about-card-bg);
+  border-radius: 18px;
+  padding: 2.2rem 1.6rem;
+  border: 1px solid rgba(26, 111, 168, 0.10);
+  box-shadow:
+    0 2px 10px var(--about-card-shadow),
+    0 8px 32px rgba(20, 80, 140, 0.07);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* top accent stripe */
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--about-accent-lt), var(--about-accent));
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 4px 20px rgba(20, 80, 140, 0.12),
+    0 16px 48px rgba(20, 80, 140, 0.12);
+}
+
+.about-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Card icon ── */
+.about-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  margin: 0 auto 1.1rem;
+  background: linear-gradient(135deg, rgba(26,111,168,0.10), rgba(58,159,216,0.08));
+  border: 1.5px solid rgba(26, 111, 168, 0.18);
+}
+
+.about-card-icon i {
+  font-size: 1.7rem;
+  color: var(--about-accent);
+}
+
+/* ── Card text ── */
+.about-card-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--about-text-dark);
+  margin-bottom: 0.55rem;
+}
+
+.about-card-text {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 0.92rem;
+  color: var(--about-text-mid);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+/* ── Bio block ── */
+.about-bio {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2.6rem 3rem;
+  border: 1px solid rgba(26, 111, 168, 0.10);
+  box-shadow:
+    0 2px 10px var(--about-card-shadow),
+    0 8px 32px rgba(20, 80, 140, 0.07);
+  text-align: none;
+  position: relative;
+  overflow: auto;
+}
+
+/* decorative quote mark */
+.about-bio::before {
+  content: "\201C";
+  position: absolute;
+  top: -18px;
+  left: 24px;
+  font-family: 'Playfair Display', serif;
+  font-size: 9rem;
+  line-height: 1;
+  color: rgba(26, 111, 168, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.about-bio p {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--about-text-mid);
+  margin-bottom: 1.1rem;
+}
+
+.about-bio p:last-child {
+  margin-bottom: 0;
+}
+
+.about-bio strong {
+  font-weight: 700;
+  color: var(--about-accent);
+}
+
+.about-bio-quote em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--about-text-dark);
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .about-bio {
+    padding: 2rem 1.4rem;
+  }
+
+  .about-bio::before {
+    font-size: 6rem;
+  }
+}
