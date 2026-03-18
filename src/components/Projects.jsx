@@ -17,7 +17,7 @@ const PROJECTS = [
     alt: "Diet Lens Project",
     github: "https://github.com/soby7736/Diet_lens",
     description:
-      "AI-powered food recognition app that logs nutrition from photos instantly.",
+      "AI-powered food recognition web application that instantly logs nutritional information from uploaded photos.",
     stack: ["Python", "Django", "sql","html","css","JavaScript"],
   },
   {
