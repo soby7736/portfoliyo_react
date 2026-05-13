@@ -219,7 +219,7 @@ function Hero() {
               <h4 className="hero-role">Python Full Stack Developer</h4>
 
               <div className="hero-buttons">
-                <a href="/files/Soby_Francis_Python_Developer.pdf" download>
+                <a href="/files/Soby_Francis_Resume.pdf" download>
                   <button className="btn-hero-outline">Download CV</button>
                 </a>
                 <a href="#contact">
